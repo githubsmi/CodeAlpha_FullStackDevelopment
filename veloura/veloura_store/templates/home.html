@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Veloura — Modern Essentials{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <p class="eyebrow">THE NEW EVERYDAY</p>
+            <h1>Quiet luxury.<br><em>Made yours.</em></h1>
+            <p class="hero-text">Discover a considered collection of fashion, beauty, home and tech essentials designed to elevate everyday moments.</p>
+            <div class="hero-buttons">
+                <a class="btn btn-dark" href="{% url 'product_list' %}">Shop the collection</a>
+                <a class="btn btn-light" href="#featured">Explore featured</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=85" alt="Modern fashion editorial">
+            <div class="floating-note"><span>01</span><strong>New season</strong><small>Thoughtfully selected</small></div>
+        </div>
+    </div>
+</section>
+
+<section class="trust-strip">
+    <div class="container trust-grid">
+        <span>✦ Curated quality</span><span>⌁ Secure checkout</span><span>◇ Easy ordering</span><span>♡ Made for modern living</span>
+    </div>
+</section>
+
+<section class="section" id="featured">
+    <div class="container">
+        <div class="section-heading">
+            <div><p class="eyebrow">EDITOR'S EDIT</p><h2>Featured pieces</h2></div>
+            <a class="arrow-link" href="{% url 'product_list' %}">View all →</a>
+        </div>
+        <div class="product-grid">
+            {% for product in featured %}
+                {% include "partials/product_card.html" %}
+            {% empty %}
+                {% for product in products %}
+                    {% include "partials/product_card.html" %}
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="editorial">
+    <div class="container editorial-grid">
+        <div class="editorial-image"><img src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=1200&q=85" alt="Curated wardrobe"></div>
+        <div class="editorial-copy">
+            <p class="eyebrow">THE VELOURA STANDARD</p>
+            <h2>Less, but better.</h2>
+            <p>We believe great style lives in the details. Veloura brings together versatile pieces with timeless appeal, so every purchase earns its place in your life.</p>
+            <a class="btn btn-dark" href="{% url 'product_list' %}">Discover Veloura</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

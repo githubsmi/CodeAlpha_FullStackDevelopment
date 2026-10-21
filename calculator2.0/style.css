@@ -1,0 +1,908 @@
+
+/* ==========================================
+   RESET
+========================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================
+   PAGE
+========================================== */
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: #4a4245;
+
+    position: relative;
+
+    overflow: hidden;
+
+    /*
+       Animated soft pastel background
+    */
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(249, 207, 220, 0.75),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 75%,
+            rgba(222, 208, 238, 0.65),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 70% 10%,
+            rgba(255, 238, 242, 0.8),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #fff8fa,
+            #f9edf2,
+            #f5eef8,
+            #fff7f8
+        );
+
+    background-size:
+        180% 180%,
+        170% 170%,
+        150% 150%,
+        400% 400%;
+
+    background-position:
+        0% 0%,
+        100% 100%,
+        100% 0%,
+        0% 50%;
+
+    animation:
+        backgroundFlow 18s ease-in-out infinite;
+}
+
+
+/* ==========================================
+   MAIN BACKGROUND ANIMATION
+========================================== */
+
+@keyframes backgroundFlow {
+
+    0% {
+        background-position:
+            0% 0%,
+            100% 100%,
+            100% 0%,
+            0% 50%;
+    }
+
+    25% {
+        background-position:
+            40% 30%,
+            70% 80%,
+            50% 20%,
+            50% 100%;
+    }
+
+    50% {
+        background-position:
+            100% 60%,
+            0% 40%,
+            20% 80%,
+            100% 50%;
+    }
+
+    75% {
+        background-position:
+            60% 100%,
+            30% 10%,
+            80% 50%,
+            50% 0%;
+    }
+
+    100% {
+        background-position:
+            0% 0%,
+            100% 100%,
+            100% 0%,
+            0% 50%;
+    }
+}
+
+
+/* ==========================================
+   FLOATING PASTEL BLOBS
+========================================== */
+
+body::before,
+body::after {
+    content: "";
+
+    position: fixed;
+
+    border-radius: 50%;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    filter: blur(5px);
+}
+
+
+/* ==========================================
+   PINK FLOATING BLOB
+========================================== */
+
+body::before {
+    width: 330px;
+    height: 330px;
+
+    top: -100px;
+    left: -100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(248, 191, 207, 0.60),
+            rgba(248, 191, 207, 0.18) 55%,
+            transparent 75%
+        );
+
+    animation:
+        pinkBlob 11s ease-in-out infinite;
+}
+
+
+@keyframes pinkBlob {
+
+    0%,
+    100% {
+        transform:
+            translate(0, 0)
+            scale(1);
+    }
+
+    25% {
+        transform:
+            translate(70px, 45px)
+            scale(1.12);
+    }
+
+    50% {
+        transform:
+            translate(140px, 10px)
+            scale(0.95);
+    }
+
+    75% {
+        transform:
+            translate(70px, 100px)
+            scale(1.08);
+    }
+}
+
+
+/* ==========================================
+   LAVENDER FLOATING BLOB
+========================================== */
+
+body::after {
+    width: 310px;
+    height: 310px;
+
+    right: -90px;
+    bottom: -100px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(211, 191, 232, 0.60),
+            rgba(211, 191, 232, 0.18) 55%,
+            transparent 75%
+        );
+
+    animation:
+        lavenderBlob 13s ease-in-out infinite;
+}
+
+
+@keyframes lavenderBlob {
+
+    0%,
+    100% {
+        transform:
+            translate(0, 0)
+            scale(1);
+    }
+
+    25% {
+        transform:
+            translate(-70px, -40px)
+            scale(1.10);
+    }
+
+    50% {
+        transform:
+            translate(-140px, -100px)
+            scale(0.94);
+    }
+
+    75% {
+        transform:
+            translate(-60px, -70px)
+            scale(1.08);
+    }
+}
+
+
+/* ==========================================
+   FLOATING PARTICLES
+========================================== */
+
+.calculator::after {
+    content: "✦  ·  ✧  ·  ✦";
+
+    position: fixed;
+
+    top: 12%;
+    right: 10%;
+
+    color: rgba(181, 137, 157, 0.35);
+
+    font-size: 18px;
+
+    letter-spacing: 18px;
+
+    pointer-events: none;
+
+    animation:
+        particlesFloat 7s ease-in-out infinite;
+}
+
+
+@keyframes particlesFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+        opacity: 0.35;
+    }
+
+    50% {
+        transform:
+            translateY(-25px)
+            rotate(8deg);
+
+        opacity: 0.75;
+    }
+}
+
+
+/* ==========================================
+   CALCULATOR BODY
+========================================== */
+
+.calculator {
+    width: 360px;
+
+    padding: 20px;
+
+    border-radius: 30px;
+
+    /* Soft pink body */
+    background:
+        linear-gradient(
+            145deg,
+            #fce5eb,
+            #f5d6de
+        );
+
+    /* Body outline */
+    border: 2px solid #e5b9c5;
+
+    position: relative;
+
+    z-index: 2;
+
+    box-shadow:
+        0 25px 50px rgba(145, 86, 105, 0.17),
+        0 8px 18px rgba(145, 86, 105, 0.09),
+        inset 0 2px 2px rgba(255, 255, 255, 0.8),
+        inset 0 -5px 10px rgba(160, 91, 110, 0.06);
+
+    transform:
+        perspective(900px)
+        rotateX(2deg);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+/* ==========================================
+   CALCULATOR HOVER
+========================================== */
+
+.calculator:hover {
+    transform:
+        perspective(900px)
+        rotateX(0deg)
+        translateY(-6px);
+
+    box-shadow:
+        0 35px 65px rgba(145, 86, 105, 0.22),
+        0 12px 25px rgba(145, 86, 105, 0.12),
+        inset 0 2px 2px rgba(255, 255, 255, 0.85),
+        inset 0 -5px 10px rgba(160, 91, 110, 0.07);
+}
+
+
+/* ==========================================
+   CALCULATOR TOP HIGHLIGHT
+========================================== */
+
+.calculator::before {
+    content: "";
+
+    position: absolute;
+
+    top: 8px;
+    left: 12%;
+
+    width: 76%;
+    height: 3px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    filter: blur(1px);
+
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   DISPLAY / SCREEN
+========================================== */
+
+.display {
+    width: 100%;
+
+    min-height: 120px;
+
+    margin-bottom: 18px;
+
+    padding: 22px 20px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+
+    border-radius: 22px;
+
+    /* Screen */
+    background:
+        linear-gradient(
+            145deg,
+            #fff9fa,
+            #f8e8ec
+        );
+
+    /* Screen outline */
+    border: 2px solid #dfb8c3;
+
+    color: #4b4145;
+
+    font-size: 40px;
+
+    font-weight: 600;
+
+    letter-spacing: -1px;
+
+    text-align: right;
+
+    box-shadow:
+        inset 0 3px 8px rgba(120, 70, 80, 0.07),
+        inset 0 -2px 3px rgba(255, 255, 255, 0.9),
+        0 6px 0 #d6a8b4,
+        0 9px 15px rgba(120, 70, 80, 0.09);
+
+    overflow: hidden;
+
+    word-break: break-all;
+
+    position: relative;
+}
+
+
+/* ==========================================
+   SCREEN SHINE
+========================================== */
+
+.display::before {
+    content: "";
+
+    position: absolute;
+
+    top: 8px;
+    left: 15px;
+
+    width: 42%;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.55);
+
+    filter: blur(6px);
+
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   BUTTON GRID
+========================================== */
+
+.buttons {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 11px;
+}
+
+
+/* ==========================================
+   GENERAL BUTTON
+========================================== */
+
+button {
+    height: 64px;
+
+    border-radius: 18px;
+
+    /* Button outline */
+    border: 2px solid #e0c5cc;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffdfd,
+            #f0e7e9
+        );
+
+    color: #544b4e;
+
+    font-family: inherit;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    position: relative;
+
+    box-shadow:
+        0 7px 0 #d4b8bf,
+        0 10px 15px rgba(100, 78, 82, 0.10),
+        inset 0 2px 2px rgba(255, 255, 255, 0.9);
+
+    transition:
+        transform 0.12s ease,
+        box-shadow 0.12s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/* ==========================================
+   BUTTON SHINE
+========================================== */
+
+button::before {
+    content: "";
+
+    position: absolute;
+
+    top: 5px;
+    left: 15%;
+
+    width: 70%;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.65);
+
+    filter: blur(1px);
+
+    pointer-events: none;
+}
+
+
+/* ==========================================
+   BUTTON HOVER
+========================================== */
+
+button:hover {
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #f7eef1
+        );
+
+    border-color: #d7adb9;
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 0 #d0b0b8,
+        0 15px 22px rgba(100, 78, 82, 0.14),
+        inset 0 2px 2px rgba(255, 255, 255, 0.95);
+}
+
+
+/* ==========================================
+   BUTTON PRESS
+========================================== */
+
+button:active {
+    transform:
+        translateY(5px)
+        scale(0.97);
+
+    box-shadow:
+        0 2px 0 #d4b8bf,
+        0 4px 8px rgba(100, 78, 82, 0.10),
+        inset 0 3px 5px rgba(100, 70, 80, 0.08);
+}
+
+
+/* ==========================================
+   OPERATOR BUTTONS
+========================================== */
+
+.operator {
+    background:
+        linear-gradient(
+            145deg,
+            #eadcf0,
+            #d9c5e0
+        );
+
+    color: #765c7d;
+
+    border-color: #cdb6d5;
+
+    box-shadow:
+        0 7px 0 #bfa4c5,
+        0 10px 15px rgba(126, 94, 137, 0.13),
+        inset 0 2px 2px rgba(255, 255, 255, 0.85);
+}
+
+
+.operator:hover {
+    background:
+        linear-gradient(
+            145deg,
+            #f0e3f4,
+            #dfcce7
+        );
+
+    border-color: #bd9fc8;
+
+    box-shadow:
+        0 10px 0 #b99bbf,
+        0 15px 22px rgba(126, 94, 137, 0.16),
+        inset 0 2px 2px rgba(255, 255, 255, 0.9);
+}
+
+
+/* ==========================================
+   CLEAR BUTTON
+========================================== */
+
+.clear {
+    background:
+        linear-gradient(
+            145deg,
+            #f6d1da,
+            #eab9c5
+        );
+
+    color: #955f6d;
+
+    border-color: #dcaab7;
+
+    box-shadow:
+        0 7px 0 #cb9eaa,
+        0 10px 15px rgba(170, 92, 110, 0.13),
+        inset 0 2px 2px rgba(255, 255, 255, 0.85);
+}
+
+
+.clear:hover {
+    background:
+        linear-gradient(
+            145deg,
+            #fadce4,
+            #edc1cc
+        );
+
+    border-color: #d49aa8;
+
+    box-shadow:
+        0 10px 0 #c796a3,
+        0 15px 22px rgba(170, 92, 110, 0.16),
+        inset 0 2px 2px rgba(255, 255, 255, 0.9);
+}
+
+
+/* ==========================================
+   DELETE BUTTON
+========================================== */
+
+button[data-action="delete"] {
+    background:
+        linear-gradient(
+            145deg,
+            #f7e7e2,
+            #ead6d1
+        );
+
+    color: #876a61;
+
+    border-color: #ddc3bd;
+
+    box-shadow:
+        0 7px 0 #c8aea8,
+        0 10px 15px rgba(110, 80, 70, 0.10),
+        inset 0 2px 2px rgba(255, 255, 255, 0.9);
+}
+
+
+button[data-action="delete"]:hover {
+    background:
+        linear-gradient(
+            145deg,
+            #fbeeea,
+            #eddbd6
+        );
+
+    border-color: #d5b4ad;
+}
+
+
+/* ==========================================
+   PERCENTAGE BUTTON
+========================================== */
+
+button[data-action="percent"] {
+    background:
+        linear-gradient(
+            145deg,
+            #e9f1f7,
+            #d8e4ed
+        );
+
+    color: #617587;
+
+    border-color: #c4d5e2;
+
+    box-shadow:
+        0 7px 0 #b4c6d2,
+        0 10px 15px rgba(80, 110, 130, 0.10),
+        inset 0 2px 2px rgba(255, 255, 255, 0.9);
+}
+
+
+button[data-action="percent"]:hover {
+    background:
+        linear-gradient(
+            145deg,
+            #f0f6fa,
+            #dfeaf2
+        );
+
+    border-color: #b4cad9;
+}
+
+
+/* ==========================================
+   EQUALS BUTTON
+========================================== */
+
+.equals {
+    background:
+        linear-gradient(
+            145deg,
+            #dcebdc,
+            #c7ddc8
+        );
+
+    color: #58705a;
+
+    border-color: #b9d1ba;
+
+    box-shadow:
+        0 7px 0 #9fb9a1,
+        0 10px 15px rgba(91, 119, 94, 0.13),
+        inset 0 2px 2px rgba(255, 255, 255, 0.9);
+}
+
+
+.equals:hover {
+    background:
+        linear-gradient(
+            145deg,
+            #e7f3e7,
+            #d0e5d1
+        );
+
+    border-color: #aac5ac;
+
+    box-shadow:
+        0 10px 0 #94af97,
+        0 15px 22px rgba(91, 119, 94, 0.16),
+        inset 0 2px 2px rgba(255, 255, 255, 0.95);
+}
+
+
+/* ==========================================
+   ZERO BUTTON
+========================================== */
+
+.zero {
+    grid-column: span 2;
+}
+
+
+/* ==========================================
+   KEYBOARD FOCUS
+========================================== */
+
+button:focus-visible {
+    outline: 3px solid #dcaeba;
+
+    outline-offset: 3px;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 14px;
+    }
+
+
+    .calculator {
+        width: 100%;
+
+        max-width: 360px;
+
+        padding: 17px;
+
+        border-radius: 27px;
+
+        border-width: 2px;
+    }
+
+
+    .display {
+        min-height: 105px;
+
+        padding: 20px 16px;
+
+        margin-bottom: 15px;
+
+        border-radius: 20px;
+
+        font-size: 34px;
+
+        box-shadow:
+            inset 0 3px 7px rgba(120, 70, 80, 0.07),
+            inset 0 -2px 3px rgba(255, 255, 255, 0.9),
+            0 5px 0 #d6a8b4,
+            0 8px 12px rgba(120, 70, 80, 0.09);
+    }
+
+
+    .buttons {
+        gap: 9px;
+    }
+
+
+    button {
+        height: 59px;
+
+        border-radius: 16px;
+
+        font-size: 19px;
+
+        box-shadow:
+            0 6px 0 #d4b8bf,
+            0 8px 12px rgba(100, 78, 82, 0.10),
+            inset 0 2px 2px rgba(255, 255, 255, 0.9);
+    }
+}
+
+
+/* ==========================================
+   VERY SMALL SCREENS
+========================================== */
+
+@media (max-width: 350px) {
+
+    .calculator {
+        padding: 13px;
+    }
+
+
+    .display {
+        min-height: 95px;
+
+        font-size: 30px;
+    }
+
+
+    .buttons {
+        gap: 7px;
+    }
+
+
+    button {
+        height: 54px;
+
+        border-radius: 14px;
+
+        font-size: 18px;
+    }
+}
+
+
+/* ==========================================
+   REDUCE ANIMATION FOR ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    body,
+    body::before,
+    body::after,
+    .calculator,
+    button {
+        animation: none !important;
+
+        transition: none !important;
+    }
+}

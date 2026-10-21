@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#101010">
+    <title>Velune — Music Player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
+    <div class="app-shell">
+
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <span class="brand-mark">V</span>
+                <span>velune</span>
+                <button class="close-menu" id="closeMenu" type="button" aria-label="Close menu">×</button>
+            </div>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <button class="nav-item active" data-view="home" type="button">
+                    <span>⌂</span>
+                    <span>Home</span>
+                </button>
+                <button class="nav-item" data-view="search" type="button">
+                    <span>⌕</span>
+                    <span>Search</span>
+                </button>
+                <button class="nav-item" data-view="library" type="button">
+                    <span>▣</span>
+                    <span>Your Library</span>
+                </button>
+            </nav>
+
+            <div class="library-block">
+                <div class="library-heading">
+                    <span>YOUR COLLECTION</span>
+                    <button id="newCollectionBtn" type="button" aria-label="Create a new collection">＋</button>
+                </div>
+
+                <div class="library-list" id="libraryList">
+                    <button class="library-item active-library" data-collection="Liked Songs" type="button">
+                        <span class="library-cover liked">♡</span>
+                        <span>
+                            <strong>Liked Songs</strong>
+                            <small id="likedCount">0 songs</small>
+                        </span>
+                    </button>
+
+                    <button class="library-item" data-collection="After Dusk" type="button">
+                        <span class="library-cover dusk">D</span>
+                        <span>
+                            <strong>After Dusk</strong>
+                            <small>Collection</small>
+                        </span>
+                    </button>
+
+                    <button class="library-item" data-collection="Soft Bloom" type="button">
+                        <span class="library-cover bloom">B</span>
+                        <span>
+                            <strong>Soft Bloom</strong>
+                            <small>Collection</small>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <span class="tiny-dot"></span>
+                <span>Listening locally</span>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header class="topbar">
+                <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">☰</button>
+
+                <div class="search">
+                    <span>⌕</span>
+                    <input id="searchInput" type="search" placeholder="Search songs, artists..." aria-label="Search songs">
+                </div>
+
+                <button class="profile" type="button" aria-label="Profile">
+                    <span>YU</span>
+                </button>
+            </header>
+
+            <section class="hero">
+                <div class="hero-copy">
+                    <p class="eyebrow">YOUR DAILY SOUNDTRACK</p>
+                    <h1>Music for the<br><em>moments between.</em></h1>
+                    <p class="hero-text">A quiet place for songs that fit the mood, the hour, and everything in between.</p>
+                    <button class="hero-button" id="heroPlay" type="button">
+                        <span id="heroPlayIcon">▶</span>
+                        <span id="heroPlayText">Play something</span>
+                    </button>
+                </div>
+
+                <div class="hero-art">
+                    <div class="hero-orb orb-one"></div>
+                    <div class="hero-orb orb-two"></div>
+                    <div class="hero-ring"></div>
+                    <div class="hero-vinyl">
+                        <span></span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker">CURATED FOR YOU</p>
+                        <h2>Made for your mood</h2>
+                    </div>
+                    <button class="text-button" id="showAllBtn" type="button">See all</button>
+                </div>
+
+                <div class="mood-grid">
+                    <button class="mood-card rose" data-song="0" type="button">
+                        <span class="mood-icon">☼</span>
+                        <span>
+                            <strong>Morning Glow</strong>
+                            <small>Warm & easy</small>
+                        </span>
+                    </button>
+                    <button class="mood-card violet" data-song="1" type="button">
+                        <span class="mood-icon">☾</span>
+                        <span>
+                            <strong>Quiet Evening</strong>
+                            <small>Slow & soft</small>
+                        </span>
+                    </button>
+                    <button class="mood-card blue" data-song="2" type="button">
+                        <span class="mood-icon">◌</span>
+                        <span>
+                            <strong>Soft Horizon</strong>
+                            <small>Dreamy & calm</small>
+                        </span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="section songs-section">
+                <div class="section-heading">
+                    <div>
+                        <p class="section-kicker" id="listKicker">YOUR PLAYLIST</p>
+                        <h2 id="listTitle">Recently played</h2>
+                    </div>
+                </div>
+
+                <div class="song-table" id="songList"></div>
+                <div class="empty-state" id="emptyState" hidden>
+                    <span>♪</span>
+                    <strong>No songs here yet</strong>
+                    <small>Like a song or add one to this collection to see it here.</small>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="player-bar">
+        <div class="now-playing">
+            <div class="mini-art" id="miniArt">
+                <span>V</span>
+            </div>
+            <div class="now-copy">
+                <strong id="nowTitle">Morning Glow</strong>
+                <span id="nowArtist">Luna Fields</span>
+            </div>
+            <button class="heart-btn" id="heartBtn" type="button" aria-label="Like song">♡</button>
+            <button class="collection-add-mini" id="nowCollectionBtn" type="button" aria-label="Add current song to collection">＋</button>
+        </div>
+
+        <div class="player-center">
+            <div class="player-controls">
+                <button id="shuffleBtn" class="player-action" type="button" aria-label="Shuffle">⤨</button>
+                <button id="prevBtn" class="player-action" type="button" aria-label="Previous">◀◀</button>
+                <button id="playBtn" class="main-play" type="button" aria-label="Play">
+                    <span id="playIcon">▶</span>
+                </button>
+                <button id="nextBtn" class="player-action" type="button" aria-label="Next">▶▶</button>
+                <button id="repeatBtn" class="player-action" type="button" aria-label="Repeat">↻</button>
+                <button id="autoplayBtn" class="autoplay-btn active" type="button" aria-label="Autoplay" aria-pressed="true">AUTO</button>
+            </div>
+
+            <div class="progress-wrap">
+                <span id="currentTime">0:00</span>
+                <input id="progress" type="range" min="0" max="100" value="0" aria-label="Song progress">
+                <span id="duration">0:00</span>
+            </div>
+        </div>
+
+        <div class="player-tools">
+            <button id="muteBtn" type="button" aria-label="Mute">⌁</button>
+            <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+        </div>
+    </footer>
+
+    <!-- Collection modal -->
+    <div class="modal-backdrop" id="collectionModal" hidden>
+        <div class="collection-modal" role="dialog" aria-modal="true" aria-labelledby="collectionModalTitle">
+            <button class="modal-close" id="closeCollectionModal" type="button" aria-label="Close">×</button>
+            <p class="section-kicker">YOUR COLLECTION</p>
+            <h2 id="collectionModalTitle">Add to collection</h2>
+            <p class="modal-song" id="modalSongName">Morning Glow</p>
+
+            <div class="collection-options" id="collectionOptions"></div>
+
+            <div class="new-collection-form" id="newCollectionForm" hidden>
+                <input id="collectionNameInput" type="text" maxlength="32" placeholder="Collection name" aria-label="Collection name">
+                <button id="saveCollectionBtn" type="button">Create</button>
+            </div>
+
+            <button class="new-collection-link" id="newCollectionLink" type="button">＋ Create new collection</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+    <audio id="audio" preload="metadata"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

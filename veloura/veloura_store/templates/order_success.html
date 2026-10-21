@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Order Confirmed — Veloura{% endblock %}
+{% block content %}
+<section class="success-section">
+    <div class="success-card">
+        <div class="success-mark">✓</div>
+        <p class="eyebrow">ORDER CONFIRMED</p>
+        <h1>Thank you, {{ order.full_name|truncatewords:1 }}.</h1>
+        <p>Your order <strong>#{{ order.id }}</strong> has been received. We’ll use <strong>{{ order.email }}</strong> for updates.</p>
+        <div class="success-total"><span>Order total</span><strong>${{ order.total }}</strong></div>
+        <a class="btn btn-dark" href="{% url 'my_orders' %}">View my orders</a>
+        <a class="continue" href="{% url 'product_list' %}">Continue shopping →</a>
+    </div>
+</section>
+{% endblock %}

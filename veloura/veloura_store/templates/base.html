@@ -1,0 +1,84 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Veloura — Modern Essentials{% endblock %}</title>
+    <meta name="description" content="Veloura — thoughtfully selected fashion, beauty, home and technology essentials.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header class="site-header">
+    <div class="container nav">
+        <a class="brand" href="{% url 'home' %}">Veloura<span>.</span></a>
+
+        <nav class="desktop-nav">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'product_list' %}">Shop</a>
+            <a href="{% url 'product_list' %}?category=fashion">Fashion</a>
+            <a href="{% url 'product_list' %}?category=beauty">Beauty</a>
+            <a href="{% url 'product_list' %}?category=home">Home</a>
+        </nav>
+
+        <div class="nav-actions">
+            <form class="nav-search" action="{% url 'product_list' %}" method="get">
+                <input name="q" value="{{ search_query|default:'' }}" placeholder="Search products..." aria-label="Search products">
+                <button aria-label="Search">⌕</button>
+            </form>
+            {% if user.is_authenticated %}
+                <a class="nav-link" href="{% url 'my_orders' %}">Account</a>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="text-button" type="submit">Logout</button>
+                </form>
+            {% else %}
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            {% endif %}
+            <a class="cart-link" href="{% url 'cart' %}" aria-label="Shopping cart">Bag <b>{{ cart_count }}</b></a>
+        </div>
+    </div>
+</header>
+
+{% if messages %}
+<div class="container messages">
+    {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer class="footer">
+    <div class="container footer-grid">
+        <div>
+            <a class="brand footer-brand" href="{% url 'home' %}">Veloura<span>.</span></a>
+            <p>Curated essentials for a beautifully modern life.</p>
+        </div>
+        <div>
+            <h4>Shop</h4>
+            <a href="{% url 'product_list' %}">All products</a>
+            <a href="{% url 'product_list' %}?category=fashion">Fashion</a>
+            <a href="{% url 'product_list' %}?category=accessories">Accessories</a>
+        </div>
+        <div>
+            <h4>Help</h4>
+            <a href="{% url 'my_orders' %}">My orders</a>
+            <a href="{% url 'cart' %}">Shopping bag</a>
+            <a href="{% url 'login' %}">Account</a>
+        </div>
+        <div>
+            <h4>Newsletter</h4>
+            <p>New arrivals, thoughtful edits and private offers.</p>
+            <div class="newsletter"><input placeholder="Your email"><button>→</button></div>
+        </div>
+    </div>
+    <div class="container footer-bottom">© 2026 Veloura. All rights reserved.</div>
+</footer>
+<script src="{% static 'js/app.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Shop — Veloura{% endblock %}
+{% block content %}
+<section class="page-head">
+    <div class="container">
+        <p class="eyebrow">THE COLLECTION</p>
+        <h1>Shop everything</h1>
+        <p>Find pieces made to become everyday favorites.</p>
+    </div>
+</section>
+<section class="section products-section">
+    <div class="container">
+        <div class="filters">
+            <div class="category-links">
+                <a class="{% if not selected_category %}active{% endif %}" href="{% url 'product_list' %}">All</a>
+                {% for value,label in categories %}
+                    <a class="{% if selected_category == value %}active{% endif %}" href="?category={{ value }}">{{ label }}</a>
+                {% endfor %}
+            </div>
+            <span>{{ products|length }} pieces</span>
+        </div>
+        {% if search_query %}<p class="search-result">Results for “{{ search_query }}”</p>{% endif %}
+        <div class="product-grid">
+            {% for product in products %}
+                {% include "partials/product_card.html" %}
+            {% empty %}
+                <div class="empty-state"><h2>No pieces found</h2><p>Try another search or category.</p><a class="btn btn-dark" href="{% url 'product_list' %}">View all</a></div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

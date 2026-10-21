@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} — Veloura{% endblock %}
+{% block content %}
+<section class="detail-section">
+    <div class="container detail-grid">
+        <div class="detail-image">
+            {% if product.image_url %}<img src="{{ product.image_url }}" alt="{{ product.name }}">{% else %}<div class="image-placeholder">Veloura</div>{% endif %}
+        </div>
+        <div class="detail-copy">
+            <p class="product-category">{{ product.get_category_display }}</p>
+            <h1>{{ product.name }}</h1>
+            <div class="detail-price"><strong>${{ product.price }}</strong>{% if product.old_price %}<del>${{ product.old_price }}</del><span>{{ product.discount_percent }}% off</span>{% endif %}</div>
+            <p class="detail-description">{{ product.description }}</p>
+            <div class="stock">{% if product.stock > 0 %}✓ In stock · {{ product.stock }} available{% else %}Out of stock{% endif %}</div>
+            <form class="buy-form" method="post" action="{% url 'add_to_cart' product.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{% url 'cart' %}">
+                <div class="quantity">
+                    <button type="button" data-minus>−</button>
+                    <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}">
+                    <button type="button" data-plus>+</button>
+                </div>
+                <button class="btn btn-dark buy-btn" {% if product.stock == 0 %}disabled{% endif %}>Add to bag</button>
+            </form>
+            <div class="detail-points">
+                <div><span>◇</span><div><strong>Thoughtfully selected</strong><small>Quality-first pieces for everyday life.</small></div></div>
+                <div><span>⌁</span><div><strong>Simple ordering</strong><small>Secure account-based checkout.</small></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="container">
+        <div class="section-heading"><div><p class="eyebrow">YOU MAY ALSO LIKE</p><h2>More to discover</h2></div></div>
+        <div class="product-grid">{% for product in related %}{% include "partials/product_card.html" %}{% endfor %}</div>
+    </div>
+</section>
+{% endblock %}

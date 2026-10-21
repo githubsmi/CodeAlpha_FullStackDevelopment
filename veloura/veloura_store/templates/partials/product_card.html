@@ -1,0 +1,28 @@
+<article class="product-card">
+    <a href="{% url 'product_detail' product.slug %}" class="product-image">
+        {% if product.image_url %}
+            <img src="{{ product.image_url }}" alt="{{ product.name }}" loading="lazy">
+        {% else %}
+            <div class="image-placeholder">Veloura</div>
+        {% endif %}
+        {% if product.discount_percent %}
+            <span class="badge">-{{ product.discount_percent }}%</span>
+        {% endif %}
+        {% if product.stock == 0 %}<span class="sold-out">Sold out</span>{% endif %}
+    </a>
+    <div class="product-meta">
+        <div>
+            <p class="product-category">{{ product.get_category_display }}</p>
+            <h3><a href="{% url 'product_detail' product.slug %}">{{ product.name }}</a></h3>
+        </div>
+        <div class="price">
+            <strong>${{ product.price }}</strong>
+            {% if product.old_price %}<del>${{ product.old_price }}</del>{% endif %}
+        </div>
+    </div>
+    <form method="post" action="{% url 'add_to_cart' product.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% url 'cart' %}">
+        <button class="add-btn" {% if product.stock == 0 %}disabled{% endif %}>Add to bag <span>+</span></button>
+    </form>
+</article>

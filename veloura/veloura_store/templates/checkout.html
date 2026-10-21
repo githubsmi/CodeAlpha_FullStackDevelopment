@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Checkout — Veloura{% endblock %}
+{% block content %}
+<section class="page-head compact"><div class="container"><p class="eyebrow">CHECKOUT</p><h1>Complete your order.</h1></div></section>
+<section class="section checkout-section">
+    <div class="container checkout-layout">
+        <div>
+            <div class="checkout-card">
+                <h2>Delivery details</h2>
+                <form method="post" id="checkout-form">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="field">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% for error in field.errors %}<small class="error">{{ error }}</small>{% endfor %}
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-dark full" type="submit">Place order · ${{ total }}</button>
+                </form>
+            </div>
+        </div>
+        <aside class="summary">
+            <p class="eyebrow">YOUR ORDER</p>
+            {% for item in items %}
+            <div class="summary-item"><span>{{ item.product.name }} × {{ item.quantity }}</span><strong>${{ item.subtotal }}</strong></div>
+            {% endfor %}
+            <hr><div class="summary-total"><span>Total</span><strong>${{ total }}</strong></div>
+            <p class="secure-note">⌁ Your order is securely processed through Veloura.</p>
+        </aside>
+    </div>
+</section>
+{% endblock %}
